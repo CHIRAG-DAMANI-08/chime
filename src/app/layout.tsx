@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import { Providers } from "../components/providers"
 import { EB_Garamond } from "next/font/google"
 import { cn } from "@/utils"
+import { Analytics } from "@/components/analytics"
 
 import "./globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
@@ -21,18 +22,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <ClerkProvider>
-    <html lang="en" className={cn(inter.variable, eb_garamond.variable)}>
-      <body className="min-h-[calc(100vh-1px)] flex flex-col font-sans bg-brand-50 text-brand-950 antialiased">
-      <main className="relative flex-1 flex flex-col">
+      <html lang="en">
+        <head>
+          <Analytics />
+        </head>
+        <body className="min-h-[calc(100vh-1px)] flex flex-col font-sans bg-brand-50 text-brand-950 antialiased">
+          <main className="relative flex-1 flex flex-col">
             <Providers>{children}</Providers>
           </main>
-      </body>
-    </html>
+        </body>
+      </html>
     </ClerkProvider>
   )
 }
